@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bekuber-deployment
+  labels:
+    app: bekuber
+spec:
+  selector:
+    matchLabels:
+      app: bekuber
+  template:
+    metadata:
+      labels:
+        app: bekuber
+    spec:
+      containers:
+      - name: bekuber
+        image: lapisan/bekuber:1.0
+        ports:
+        - containerPort: 5001
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        env:
+         - name: NODE_ENV
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: NODE_ENV
+         - name: HOST
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: HOST
+         - name: PORT
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: PORT               
+         - name: DB_NAME
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: DB_NAME
+         - name: DB_USER
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: DB_USER
+         - name: DB_PASSWORD
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: DB_PASSWORD
+         - name: DB_HOST
+           valueFrom:
+            secretKeyRef:
+              name: bekuber-secret
+              key: DB_HOST 

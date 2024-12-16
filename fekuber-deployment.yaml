@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fekuber-deployment
+  labels:
+    app: fekuber
+spec:
+  selector:
+    matchLabels:
+      app: fekuber
+  template:
+    metadata:
+      labels:
+        app: fekuber
+    spec:
+      containers:
+        - name: fekuber
+          image: lapisan/fekuber:1.0
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 512Mi
+   

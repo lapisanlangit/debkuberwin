@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kuber-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: 192-168-216-207.nip.io
+      http:
+        paths:
+          - path: /(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: fekuber-service
+                port:
+                  number: 80
+          - path: /api/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: bekuber-service
+                port:
+                  number: 5002

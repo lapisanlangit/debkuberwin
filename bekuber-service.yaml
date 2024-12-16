@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bekuber-service
+spec:
+  selector:
+    app: bekuber
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5001
